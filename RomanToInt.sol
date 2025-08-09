@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 contract RomanToInt {
 
-    mapping(bytes1 => uint) values ;
+    mapping(bytes1 => int256) values ;
 
     constructor () {
         values['I'] = 1;
@@ -15,17 +15,17 @@ contract RomanToInt {
         values['M'] = 1000;
     }
 
-    function romanToInt(string memory s) public view returns (uint) {
-        uint result = 10;
+    function romanToInt(string memory s) public view returns (int256) {
+        int256 result ;
 
         bytes memory chars = bytes(s);
 
         for ( uint i=0 ; i < chars.length ; i ++   ) {
 
-               uint number = values[chars[i]];
+               int256 number = values[chars[i]];
 
                 if (i < chars.length - 1) {
-                    uint nextNum = values[chars[i+1]];
+                    int256 nextNum = values[chars[i+1]];
 
                     if (number < nextNum ){
 

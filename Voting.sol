@@ -36,4 +36,6 @@ contract Voting {
             voteMap[volunteers[i]] = 0;
         }
     }
+
+    
 }

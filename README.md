@@ -18,3 +18,8 @@
 
 - ### 6. ✅  二分查找 (Binary Search)
 - 题目描述：在一个有序数组中查找目标值。
+
+- ### 一、Solidity Learn
+- 1. ✅  课程： https://github.com/WTFAcademy/WTF-Solidity?tab=readme-ov-file
+1.  npx remixd --remix-ide https://remix.ethereum.org
+2. 

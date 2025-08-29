@@ -5,6 +5,9 @@
 # Remix plugin state folders
 deps/
 states/
+/.learneth/
+/.deps/
+/.states/
 
 # Debug info
 *.dbg.json
@@ -13,3 +16,4 @@ states/
 # Optional
 .env
 .env.local
+

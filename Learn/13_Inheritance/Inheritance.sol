@@ -25,15 +25,15 @@ contract Yeye {
 
 contract Baba is Yeye {
 
-    function hip() public override {
+    function hip() public virtual override {
         emit YeyeLog("Baba says hip!");
     }
 
-    function hop() public override {
+    function hop() public virtual override {
         emit YeyeLog("Baba says hop!");
     }
 
-    function yeye() public override {
+    function yeye() public virtual override {
         emit YeyeLog("Baba says yeye!");
     }
 
@@ -44,15 +44,15 @@ contract Baba is Yeye {
 
 contract TT is Yeye, Baba {
 
-    function hip() public override(Yeye, Baba) {
+    function hip() public virtual override(Yeye, Baba) {
         emit YeyeLog("TT says hip!");
     }
 
-    function hop() public override(Yeye, Baba) {
+    function hop() public virtual override(Yeye, Baba) {
         emit YeyeLog("TT says hop!");
     }
 
-    function yeye() public override(Yeye, Baba) {
+    function yeye() public virtual override(Yeye, Baba) {
         emit YeyeLog("TT says yeye!");
     }
 
@@ -63,17 +63,17 @@ contract TT is Yeye, Baba {
 
 contract KK is Yeye, Baba {
 
-    function hip() public override(Yeye, Baba) {
+    function hip() public virtual override(Yeye, Baba) {
         super.hip();
         emit YeyeLog("KK says hip!");
     }
 
-    function hop() public override(Yeye, Baba) {
+    function hop() public virtual override(Yeye, Baba) {
         super.hop();
         emit YeyeLog("KK says hop!");
     }
 
-    function yeye() public override(Yeye, Baba) {
+    function yeye() public virtual override(Yeye, Baba) {
         super.yeye();
         emit YeyeLog("KK says yeye!");
     }
@@ -85,17 +85,17 @@ contract KK is Yeye, Baba {
 
 contract Person is TT, KK {
 
-    function hip() public override(TT, KK) {
+    function hip() public virtual override(TT, KK) {
         super.hip();
         emit YeyeLog("Person says hip!");
     }
 
-    function hop() public override(TT, KK) {
+    function hop() public virtual override(TT, KK) {
         super.hop();
         emit YeyeLog("Person says hop!");
     }
 
-    function yeye() public override(TT, KK) {
+    function yeye() public virtual override(TT, KK) {
         super.yeye();
         emit YeyeLog("Person says yeye!");
     }
@@ -106,4 +106,22 @@ contract Person is TT, KK {
 }
 
 contract Inheritance {
+
+    Person person;
+
+    constructor(){
+        person = new Person();
+    }
+
+    function hip() public {
+        person.hip();
+    }
+
+    function hop() public {
+        person.hop();
+    }
+
+    function yeye() public {
+        person.yeye();
+    }
 }

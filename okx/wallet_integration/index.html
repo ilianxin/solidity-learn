@@ -21,6 +21,10 @@
     <div>
         <button class="addToken">Add Token</button>
     </div>
+    <div>
+        <button class="signTransactionButton btn">Send Transaction</button>
+        <label class="txHash"></label>
+    </div>
 </body>
 <script>
     if (typeof window.okxwallet !== 'undefined') {
@@ -30,6 +34,7 @@
 
     const connectEthereumButton = document.querySelector('.connectEthereumButton');
     const switchChainButton = document.querySelector('.switchChainButton');
+    const signTransactionButton = document.querySelector('.signTransactionButton');
 
     let accounts = [];
 
@@ -93,8 +98,8 @@
     // step5 添加代币
     const addTokenButton = document.querySelector('.addToken');
     addTokenButton.addEventListener('click', async () => {
-        const tokenAddress = '0x42562e68ee0f6c823363e182106486b7253bb570';
-        const tokenSymbol = ' MTK';
+        const tokenAddress = '0x8B5977Eb4B204a93fD153216Be4a66fB7Fc71bd8';
+        const tokenSymbol = 'MTK';
         const tokenDecimals = 18;
         const tokenImage = 'https://www.shutterstock.com/image-vector/web-30-typography-on-futuristic-260nw-2126710844.jpg';
         try {
@@ -120,6 +125,28 @@
         } catch (error) {
             console.log(error);
         }
+    });
+
+    // step6 发送交易
+    signTransactionButton.addEventListener('click', () => {
+        okxwallet
+            .request({
+                method: 'eth_sendTransaction',
+                params: [
+                    {
+                        from: accounts[0],
+                        to: '0x5CB8896Db7Bf13DE6A6EA362866288e577e4F6C5',
+                        value: '0x1BC16D674EC80000',
+                        gasPrice: '0x09184e72a000',
+                        gas: '0x2710',
+                    },
+                ],
+            })
+            .then((txHash) => {
+                console.log(txHash);
+                document.querySelector('.txHash').textContent = txHash;
+            })
+            .catch((error) => console.error);
     });
 </script>
 

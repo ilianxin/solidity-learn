@@ -25,6 +25,10 @@
         <button class="signTransactionButton btn">Send Transaction</button>
         <label class="txHash"></label>
     </div>
+    <div>
+        <button class="signMessageButton btn">Sign Message</button>
+        <label class="sigMsg"></label>
+    </div>
 </body>
 <script>
     if (typeof window.okxwallet !== 'undefined') {
@@ -35,6 +39,7 @@
     const connectEthereumButton = document.querySelector('.connectEthereumButton');
     const switchChainButton = document.querySelector('.switchChainButton');
     const signTransactionButton = document.querySelector('.signTransactionButton');
+    const signMessageButton = document.querySelector('.signMessageButton');
 
     let accounts = [];
 
@@ -145,6 +150,20 @@
             .then((txHash) => {
                 console.log(txHash);
                 document.querySelector('.txHash').textContent = txHash;
+            })
+            .catch((error) => console.error);
+    });
+
+    // step7: 签名消息
+    signMessageButton.addEventListener('click', () => {
+        okxwallet
+            .request({
+                method: 'eth_sign',
+                params: [accounts[0], "0xdeadbeaf"],
+            })
+            .then((res) => {
+                console.log(res);
+                document.querySelector('.sigMsg').textContent = res;
             })
             .catch((error) => console.error);
     });

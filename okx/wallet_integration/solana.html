@@ -11,10 +11,14 @@
         <button class="connectSolanaButton btn">Connect Solana</button>
         <label class="account"></label>
     </div>
-
+    <div>
+        <button class="signButton btn">Sign Message</button>
+        <label class="sigMsg"></label>
+    </div>
 </body>
 <script>
     const connectSolanaButton = document.querySelector('.connectSolanaButton');
+    const signButton = document.querySelector('.signButton');
 
     let account = '';
 
@@ -30,6 +34,20 @@
         } catch (error) {
             console.log(error);
             // { code: 4001, message: "User rejected the request."}
+        }
+    });
+
+    // step2 消息签名
+    signButton.addEventListener('click', async () => {
+        try {
+            const message = `GM, Solana ~ I am OKX`;
+            const encodedMessage = new TextEncoder().encode(message);
+            const signedMessage = await window.okxwallet.solana.signMessage(encodedMessage, "utf8");
+            console.log(signedMessage.signature);
+            document.querySelector('.sigMsg').textContent = signedMessage.signature;
+
+        } catch (error) {
+            // see "Errors"
         }
     });
 </script>

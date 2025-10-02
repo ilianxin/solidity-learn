@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Solana DApp</title>
+</head>
+
+<body>
+    <div>
+        <button class="connectSolanaButton btn">Connect Solana</button>
+        <label class="account"></label>
+    </div>
+
+</body>
+<script>
+    const connectSolanaButton = document.querySelector('.connectSolanaButton');
+
+    let account = '';
+
+    // step1 创建连接
+    connectSolanaButton.addEventListener('click', async () => {
+        try {
+            const provider = window.okxwallet.solana;
+            const resp = await provider.connect();
+            console.log(resp.publicKey.toString());
+            account = resp.publicKey.toString();
+            document.querySelector('.account').textContent = account;
+
+        } catch (error) {
+            console.log(error);
+            // { code: 4001, message: "User rejected the request."}
+        }
+    });
+</script>
+
+</html>

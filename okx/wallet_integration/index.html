@@ -14,6 +14,9 @@
         <button class="connectEthereumButton">Connect to Ethereum</button>
         <label class="account"></label>
     </div>
+    <div>
+        ChainId: <label class="chainId"></label>
+    </div>
 </body>
 <script>
     if (typeof window.okxwallet !== 'undefined') {
@@ -33,11 +36,29 @@
         document.querySelector('.account').textContent = accounts[0];
     });
 
+    // okxwallet.on('accountsChanged', handler: (accounts: Array<string>) => void);
+
     // step2 监听地址变化#
     okxwallet.on('accountsChanged', (accounts) => {
         // Handle accounts changed event
         console.log('Accounts changed:', accounts);
         document.querySelector('.account').textContent = accounts[0];
     });
+
+    // step3 监听网络变化#
+    window.addEventListener('load', async () => {
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        console.log("chainId: ", chainId);
+        document.querySelector('.chainId').textContent = chainId;
+        // window.ethereum.on('chainChanged', handleChainChanged);
+        okxwallet.on('chainChanged', handleChainChanged);
+    });
+    function handleChainChanged(chainId) {
+        // We recommend reloading the page, unless you must do otherwise.
+        console.log("new chainId: ", chainId);
+        // window.location.reload();
+        document.querySelector('.chainId').textContent = chainId;
+    }
 </script>
+
 </html>

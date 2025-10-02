@@ -15,6 +15,10 @@
         <button class="signButton btn">Sign Message</button>
         <label class="sigMsg"></label>
     </div>
+    <div>
+        <label>连接状态</label>
+        <label class="connectStatus"></label>
+    </div>
 </body>
 <script>
     const connectSolanaButton = document.querySelector('.connectSolanaButton');
@@ -48,6 +52,30 @@
 
         } catch (error) {
             // see "Errors"
+        }
+    });
+
+    // step3 事件监听
+    window.okxwallet.solana.on('connect', () => {
+        console.log('connected');
+        document.querySelector('.connectStatus').textContent = 'connected';
+    })
+
+    window.okxwallet.solana.on("disconnect", () => {
+        console.log("disconnected!")
+        document.querySelector('.connectStatus').textContent = 'disconnected';
+    });
+
+    window.okxwallet.solana.on('accountChanged', (publicKey) => {
+        if (publicKey) {
+            // Set new public key and continue as usual
+            console.log(`Switched to account ${publicKey.toBase58()}`);
+            document.querySelector('.connectStatus').textContent = `Switched to account ${publicKey.toBase58()}`;
+        } else {
+            // Attempt to reconnect to OKX wallet
+            window.okxwallet.solana.connect().catch((error) => {
+                // Handle connection failure
+            });
         }
     });
 </script>

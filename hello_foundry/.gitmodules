@@ -1,0 +1,5 @@
+# 1. 编辑或创建 .gitmodules 文件
+# 在文件中添加以下内容：
+[submodule "hello_foundry/lib/openzeppelin-contracts"]
+    path = hello_foundry/lib/openzeppelin-contracts
+    url = https://github.com/OpenZeppelin/openzeppelin-contracts.git
